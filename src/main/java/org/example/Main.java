@@ -8,6 +8,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import java.time.Duration;
@@ -29,23 +30,23 @@ public class Main {
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
     }
 
-    @Test(priority = 1)
-    public void openAmazonWebPage() {
+    @DataProvider(name = "searchQueries")
+    public Object[][] searchQueriesProvider() {
+        return new Object[][] {
+                {"iphone"},
+                {"samsung"},
+                {"oneplus"}
+        };
+    }
+    @Test(dataProvider = "searchQueries")
+    public void searchOnAmazonAndVerify(String query) {
+        // Open Amazon webpage
         driver.get("https://www.amazon.in");
         System.out.println("Webpage Opened");
         assertTrue(driver.getTitle().contains("Amazon"), "Amazon page title is incorrect");
-    }
 
-    @Test(priority = 2)
-    public void searchQueriesOnAmazon() {
-        ArrayList<String> queries = new ArrayList<>();
-        queries.add("iphone");
-        queries.add("samsung");
-        queries.add("oneplus");
-
-        for (String query : queries) {
-            searchOnAmazon(query);
-        }
+        // Perform search
+        searchOnAmazon(query);
     }
 
     public void searchOnAmazon(String query) {
