@@ -69,9 +69,9 @@ public class Main {
                     String productName = nameElement.getText();
 
                     String productPrice = "";
-                    WebElement priceElement = container.findElement(By.xpath(".//span[@class='a-price-whole']"));
-                    if (priceElement!=null) {
-                        productPrice = priceElement.getText();
+                    List<WebElement> priceElements = container.findElements(By.xpath(".//span[@class='a-price-whole']"));
+                    if (!priceElements.isEmpty()) {
+                        productPrice = priceElements.get(0).getText();
                     }
 
                     System.out.println("Product Name: " + productName + " | Price: " + (productPrice.isEmpty() ? "N/A" : productPrice));
