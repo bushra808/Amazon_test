@@ -92,7 +92,7 @@ public class Main {
         }
     }
 
-    //    @AfterClass
+        @AfterClass
     public void closeChromeBrowser() {
         if (driver != null) {
             driver.quit();
