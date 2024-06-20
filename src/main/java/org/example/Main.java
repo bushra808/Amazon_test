@@ -12,7 +12,6 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import java.time.Duration;
-import java.util.ArrayList;
 import java.util.List;
 
 import static org.testng.Assert.assertFalse;
@@ -70,9 +69,9 @@ public class Main {
                     String productName = nameElement.getText();
 
                     String productPrice = "";
-                    List<WebElement> priceElements = container.findElements(By.xpath(".//span[@class='a-price-whole']"));
-                    if (!priceElements.isEmpty()) {
-                        productPrice = priceElements.get(0).getText();
+                    WebElement priceElement = container.findElement(By.xpath(".//span[@class='a-price-whole']"));
+                    if (priceElement!=null) {
+                        productPrice = priceElement.getText();
                     }
 
                     System.out.println("Product Name: " + productName + " | Price: " + (productPrice.isEmpty() ? "N/A" : productPrice));
