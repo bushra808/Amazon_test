@@ -7,10 +7,6 @@ import org.openqa.selenium.WebElement;
 import java.util.List;
 
 public class AmazonPage extends BasePage {
-    private By searchBox = By.id("twotabsearchtextbox");
-    private By productContainer = By.xpath("//div[contains(@class, 's-main-slot')]/div[@data-component-type='s-search-result']");
-    private By productName = By.xpath(".//span[@class='a-size-medium a-color-base a-text-normal' or contains(@class, 'a-size-medium a-color-base a-text-normal a-text-bold')]");
-    private By productPrice = By.xpath(".//span[@class='a-price-whole']");
 
     public AmazonPage(WebDriver driver) {
         super(driver);
@@ -21,23 +17,23 @@ public class AmazonPage extends BasePage {
     }
 
     public void searchFor(String query) {
-        WebElement searchInputElement = driver.findElement(searchBox);
+        WebElement searchInputElement = driver.findElement(AmazonPageLocators.SEARCH_BOX);
         searchInputElement.sendKeys(query);
         searchInputElement.submit();
     }
 
     public List<WebElement> getProductContainers() {
-        waitForPresence(productContainer);
-        return driver.findElements(productContainer);
+        waitForPresence(AmazonPageLocators.PRODUCT_CONTAINER);
+        return driver.findElements(AmazonPageLocators.PRODUCT_CONTAINER);
     }
 
     public String getProductName(WebElement container) {
-        WebElement nameElement = container.findElement(productName);
+        WebElement nameElement = container.findElement(AmazonPageLocators.PRODUCT_NAME);
         return nameElement.getText();
     }
 
     public String getProductPrice(WebElement container) {
-        List<WebElement> priceElements = container.findElements(productPrice);
-        return priceElements.isEmpty() ? "N/A" : priceElements.getFirst().getText();
+        List<WebElement> priceElements = container.findElements(AmazonPageLocators.PRODUCT_PRICE);
+        return priceElements.isEmpty() ? "N/A" : priceElements.get(0).getText();
     }
 }
